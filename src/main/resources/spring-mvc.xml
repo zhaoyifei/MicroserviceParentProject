@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc
+						http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+						http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+						http://www.springframework.org/schema/context
+          				http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+
+
+	<context:component-scan base-package="cn.heartonline.wapapi.*" />
+
+	<!-- 映射静态资源 -->
+	<!--<mvc:resources location="/images/" mapping="/images/**"/>-->
+
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<bean id="myInterceptor" class="cn.heartonline.common.interceptor.MyInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
+
+	<!-- MVC注解驱动 -->
+	<mvc:annotation-driven>
+		<mvc:message-converters register-defaults="false">
+			<bean id="jacksonMessageConverter"
+				class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"
+				p:supportedMediaTypes="*/*" />
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+
+	
+
+
+	<!-- 内部资源视图解析器 -->
+	<!--<bean-->
+	<!--
+		class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+	-->
+	<!--<property name="viewResolvers">-->
+	<!--<list>-->
+	<!--
+		<bean
+		class="org.springframework.web.servlet.view.BeanNameViewResolver" />
+	-->
+	<!--<bean-->
+	<!--
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	-->
+	<!--<property name="prefix" value="/WEB-INF/view/" />-->
+	<!--<property name="suffix" value=".jsp" />-->
+	<!--</bean>-->
+	<!--</list>-->
+	<!--</property>-->
+	<!--</bean>-->
+
+	<!-- 文件上传解析器 id 必须为multipartResolver -->
+	<!--
+		<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	-->
+	<!--		<property name="maxUploadSize" value="5000000"/>-->
+	<!--	</bean>-->
+
+</beans>
